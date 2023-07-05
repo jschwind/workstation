@@ -1,9 +1,9 @@
 # Workstation
 
 ## Vorbereitungen
-- PC anschließen
-- Erstellen eines bootfähigen USB-Sticks mit Manjaro
-- Download unter https://manjaro.org/download/ > X86_64 > Plasma Desktop
+- [Mini-PC**](https://www.amazon.de/s?k=mini+pc+ryzen&tag=partyworms0c-21) anschließen
+- [Manjaro](https://manjaro.org/download/) herunterladen (X86_64 - Plasma Desktop)
+- Erstellen eines bootfähigen [USB-Sticks**](https://www.amazon.de/s?k=bootf%C3%A4higer+usb+stick&tag=partyworms0c-21) mit dem Manjaro-Image
 
 ## Manjaro installieren
 - tz=European/Berlin, keytable=de, lang=de_DE
@@ -58,7 +58,7 @@
 
 ### JetBrains Toolbox App installieren
 
-- JetBrains Toolbox App (https://www.jetbrains.com/de-de/toolbox-app/) installieren
+- [JetBrains Toolbox App](https://www.jetbrains.com/de-de/toolbox-app/) installieren
 - Einloggen
 - PHP Storm installieren
 
@@ -69,7 +69,7 @@
 Folgenden Programm in den Autostart 
 
 - yakuake
-- dropbox
+- dropbox (wenn installiert)
 - jetbrain toolbox
 
 ### Git
@@ -87,6 +87,12 @@ Docker ohne root ausführen und starten
     sudo systemctl enable docker.service
     sudo usermod -aG docker $USER
 
+### Chromium und KeePass
+
+- [Kee - Password Manager](https://chrome.google.com/webstore/detail/kee-password-manager/mmhlniccooihdimnnjhamobppdhaolme) Installieren
+- [KeePassRPC.plgx](https://github.com/kee-org/keepassrpc/tags) herunterladen und in den Plugins von KeePass kopieren (braucht sudo)
+- `sudo cp KeePassRPC.plgx /usr/share/keepass/Plugins/` in Downloads ausführen
+ 
 ## Workarounds
 
 ### Git Probleme mit PHP Storm
@@ -96,7 +102,6 @@ Sollte das Absenden von Commits mit der Fehlermeldung `error: gpg failed to sign
     nano ~/.bashrc
 
 Änderung in der Datei
-
 
     #
     # ~/.bashrc
@@ -142,3 +147,5 @@ Um den Cache von Paketen zu bereinigen, die nicht mehr installiert sind, gib das
     sudo pacman -Sc
 
 Quelle: https://wiki.manjaro.org/index.php/Pacman_Overview/de
+
+** Ref-Links zu Amazon
