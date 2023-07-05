@@ -87,7 +87,6 @@ Docker ohne root ausführen und starten
     sudo systemctl enable docker.service
     sudo usermod -aG docker $USER
 
-
 ## Workarounds
 
 ### Git Probleme mit PHP Storm
@@ -106,6 +105,14 @@ Sollte das Absenden von Commits mit der Fehlermeldung `error: gpg failed to sign
     GPG_TTY=$(tty)  <- Diese Zeile muss rein
     export GPG_TTY  <- Diese Zeile muss rein
 
+Wenn es dann immer noch nicht geht Folgendes:
+
+    nano ~/.gnupg/gpg-agent.conf
+
+Folgender Inhalt
+
+    pinentry-program /usr/bin/pinentry-qt
+    allow-loopback-pinentry
 
 ### Hilfen zum Aufräumen des Systems
 
