@@ -114,6 +114,11 @@ Folgender Inhalt
     pinentry-program /usr/bin/pinentry-qt
     allow-loopback-pinentry
 
+Oder wie folgt, wenn man das Passwort im Dialog speichern möchte
+
+    pinentry-program /usr/bin/pinentry-gnome3
+    allow-loopback-pinentry
+
 ### Hilfen zum Aufräumen des Systems
 
 Um die Paketdatenbank zu aktualisieren und alle Pakete auf dem System zu aktualisieren
@@ -135,6 +140,5 @@ Um alle verwaisten Pakete zu entfernen:
 Um den Cache von Paketen zu bereinigen, die nicht mehr installiert sind, gib das folgende Kommando ein:
 
     sudo pacman -Sc
-
 
 Quelle: https://wiki.manjaro.org/index.php/Pacman_Overview/de
