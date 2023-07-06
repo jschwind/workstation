@@ -50,6 +50,7 @@
 - docker (Alle 3 anhaken)
 - docker-compose
 - Dropbox (AUR) (optional)
+- Flameshot (flameshot)
 - KeePass Password Safe (keepass) > xdotool (optional)
 - Mattermost (mattermost-desktop) (optional)
 - Remmina (Free RDP) (optional)
