@@ -46,15 +46,16 @@
 
 ### Folgende Software über "Software hinzufügen/entfernen" installieren
 
-- Dropox (AUR) (optional)
-- KeePass Password Safe (keepass) > xdotool
 - Chromium Web Browser (chromium)
-- spotify (AUR) (optional)
 - docker (Alle 3 anhaken)
-- veracrypt
-- yakuake
-- Remmina (Free RDP)
 - docker-compose
+- Dropbox (AUR) (optional)
+- KeePass Password Safe (keepass) > xdotool (optional)
+- Mattermost (mattermost-desktop) (optional)
+- Remmina (Free RDP) (optional)
+- spotify (AUR) (optional)
+- yakuake
+- veracrypt (optional)
 
 ### JetBrains Toolbox App installieren
 
