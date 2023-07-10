@@ -96,7 +96,11 @@ Docker ohne root ausführen und starten
 - [KeePassRPC.plgx](https://github.com/kee-org/keepassrpc/tags) herunterladen und in den Plugins von KeePass kopieren (braucht sudo)
 - `sudo cp KeePassRPC.plgx /usr/share/keepass/Plugins/` in Downloads ausführen
  
-## Workarounds
+## Workarounds / Tipps
+
+### 2. Kernel als Backup
+
+Unter dem Programm `Kernel` noch einen 2. LTS Kernel installieren
 
 ### Git Probleme mit PHP Storm
 
