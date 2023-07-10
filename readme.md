@@ -70,9 +70,10 @@
 
 Folgenden Programm in den Autostart 
 
-- yakuake
-- dropbox (wenn installiert)
-- jetbrain toolbox
+- Dropbox (wenn installiert)
+- Flameshot
+- JetBrains Toolbox
+- Yakuake
 
 ### Git
 
