@@ -1,4 +1,6 @@
-# Workstation
+[Workspace](ReadMe.md) / Manjaro
+
+# Manjaro - Workstation
 
 ## Vorbereitungen
 - [Mini-PC**](https://www.amazon.de/s?k=mini+pc+ryzen&tag=partyworms0c-21) anschließen
@@ -35,9 +37,9 @@
 ### Uhr und Zeitzone
 
 - Über die Uhrzeit in die Einstellungen > "Zeitzonen" > "Zeitzone des Sysmtems wechseln" > "Datum & Uhrzeit"
-- "Datum und Uhrzeit automatisch einstellen" anhaken und dann "Anwenden" 
+- "Datum und Uhrzeit automatisch einstellen" anhaken und dann "Anwenden"
 
-### Software hinzufügen/entfernen  (optional)
+### Software hinzufügen/entfernen (optional)
 
 - Über das Burgermenü in die Einstellungen > Drittanbeiter
 - "AUR Unterstützung" und "Auf Updates prüfen" aktivieren
@@ -68,7 +70,7 @@
 
 ### Autostart
 
-Folgenden Programm in den Autostart 
+Folgenden Programm in den Autostart
 
 - Dropbox (wenn installiert)
 - Flameshot
@@ -95,7 +97,7 @@ Docker ohne root ausführen und starten
 - [Kee - Password Manager](https://chrome.google.com/webstore/detail/kee-password-manager/mmhlniccooihdimnnjhamobppdhaolme) Installieren
 - [KeePassRPC.plgx](https://github.com/kee-org/keepassrpc/tags) herunterladen und in den Plugins von KeePass kopieren (braucht sudo)
 - `sudo cp KeePassRPC.plgx /usr/share/keepass/Plugins/` in Downloads ausführen
- 
+
 ## Workarounds / Tipps
 
 ### 2. Kernel als Backup
