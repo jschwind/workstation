@@ -70,6 +70,13 @@ Inhalt:
     X-KDE-SubstituteUID=false
     X-KDE-Username=
 
+### Optionen
+
+- `/sound` - Sound übertragen
+- `/multimon` - Mehrere Monitore übertragen
+- `/w:1920` - Breite des Fensters
+- `/h:1080` - Höhe des Fensters
+
 ### Shortcuts
 
 - Fenstermodus mit `STRG + ALT + ENTER`
