@@ -48,17 +48,17 @@
 
 ### Folgende Software über "Software hinzufügen/entfernen" installieren
 
-- Chromium Web Browser (chromium)
-- docker (Alle 3 anhaken)
+- Chromium Web Browser (chromium) > alle optionalen Abhängigkeiten ausser kwallet
+- docker > alle optionalen Abhängigkeiten
 - docker-compose
-- Dropbox (AUR) (optional)
-- Flameshot (flameshot)
-- KeePass Password Safe (keepass) > xdotool (optional)
+- Dropbox (AUR) (optional) > alle optionalen Abhängigkeiten
+- Flameshot (flameshot) > alle optionalen Abhängigkeiten
+- KeePass Password Safe (keepass) > alle optionalen Abhängigkeiten
 - Mattermost (mattermost-desktop) (optional)
 - Remmina (Free RDP) (optional)
-- spotify (AUR) (optional)
-- yakuake
-- veracrypt (optional)
+- spotify (AUR) (optional) > alle optionalen Abhängigkeiten
+- yakuake (evtl. schon installiert)
+- veracrypt (optional) > alle optionalen Abhängigkeiten
 
 ### JetBrains Toolbox App installieren
 
@@ -106,6 +106,12 @@ Unter dem Programm `Kernel` noch einen 2. LTS Kernel installieren
 
 ### Git Probleme mit PHP Storm
 
+## 1. Ansatz | pinentry
+
+Sollte das Absenden von Commits mit der Fehlermeldung `error: gpg failed to sign the data` enden, alle optionalen Abhängigkeiten zu "pinentry" installieren.
+
+## 2. Ansatz
+
 Sollte das Absenden von Commits mit der Fehlermeldung `error: gpg failed to sign the data` enden, liegt es an einer älteren curl Version. Um diesen Fehler zu beheben, muss man die `.bashrc` bearbeiten.
 
     nano ~/.bashrc
@@ -119,6 +125,8 @@ Sollte das Absenden von Commits mit der Fehlermeldung `error: gpg failed to sign
     GPG_TTY=$(tty)  <- Diese Zeile muss rein
     export GPG_TTY  <- Diese Zeile muss rein
 
+## Pinentry konfigurieren
+
 Wenn es dann immer noch nicht geht Folgendes:
 
     nano ~/.gnupg/gpg-agent.conf
@@ -128,10 +136,16 @@ Folgender Inhalt
     pinentry-program /usr/bin/pinentry-qt
     allow-loopback-pinentry
 
-Oder wie folgt, wenn man das Passwort im Dialog speichern möchte
+## Pinentry mit Passwort speichern Maske
+
+Wenn man das Passwort im Dialog speichern möchte
+
+    nano ~/.gnupg/gpg-agent.conf
+
+ändern in 
 
     pinentry-program /usr/bin/pinentry-gnome3
-    allow-loopback-pinentry
+
 
 ### Hilfen zum Aufräumen des Systems
 
