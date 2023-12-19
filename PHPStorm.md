@@ -2,6 +2,10 @@
 
 # PHPStorm
 
+### Escape von String in PHPStorm aktivieren
+
+    File > Settings > Editor > General > Smart Keys > PHP > [ ] Escape symbols on paste in string literals
+
 ### Optimieren von Manjaro für PHPStorm
 
     sudo nano /etc/sysctl.d/idea.conf
