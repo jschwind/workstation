@@ -146,6 +146,20 @@ Wenn man das Passwort im Dialog speichern möchte
 
     pinentry-program /usr/bin/pinentry-gnome3
 
+## Pinentry Timeout auf 8 Stunden setzen
+
+    nano ~/.gnupg/gpg-agent.conf
+
+dann folgende Zeilen einfügen
+
+    allow-loopback-pinentry
+    default-cache-ttl 28800   # 8 Stunden in Sekunden
+    max-cache-ttl 28800       # 8 Stunden in Sekunden
+
+Starte den GPG-Agenten neu, damit die Änderungen aktiv werden:
+
+    gpgconf --kill gpg-agent
+
 
 ### Hilfen zum Aufräumen des Systems
 
