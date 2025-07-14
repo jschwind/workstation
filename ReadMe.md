@@ -10,3 +10,4 @@ Grundlegende Anleitung zur Einrichtung eines neuen Arbeitsplatzes.
 - [Securepoint](Securepoint.md)
 - [RemoteDesktop](RemoteDesktop.md)
 - [Mattermost](Mattermost.md)
+- [Drucker](Drucker.md)
