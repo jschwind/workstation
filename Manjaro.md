@@ -1,4 +1,4 @@
-[Workspace](ReadMe.md) / Manjaro
+[Workspace](ReadMe.md) / Manjaro – Workstation einrichten
 
 # 🖥️ Manjaro – Workstation einrichten
 

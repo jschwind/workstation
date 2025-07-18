@@ -1,6 +1,6 @@
-[Workspace](ReadMe.md) / Securepoint
+[Workspace](ReadMe.md) / Securepoint – VPN unter Manjaro einrichten
 
-# 🔐 Securepoint – VPN unter Manjaro einrichten
+# 🛡️ Securepoint – VPN unter Manjaro einrichten
 
 Anleitung zur Einrichtung einer Securepoint-VPN-Verbindung unter Manjaro Linux.
 

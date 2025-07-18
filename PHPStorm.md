@@ -1,4 +1,4 @@
-[Workspace](ReadMe.md) / PHPStorm
+[Workspace](ReadMe.md) / PHPStorm – Einrichtung & Optimierung
 
 # 🧠 PHPStorm – Einrichtung & Optimierung
 

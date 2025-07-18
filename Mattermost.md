@@ -1,4 +1,4 @@
-[Workspace](ReadMe.md) / Mattermost
+[Workspace](ReadMe.md) / Mattermost – Workstation Einrichtung
 
 # 💬 Mattermost – Workstation Einrichtung
 

@@ -1,6 +1,6 @@
-[Workspace](ReadMe.md) / RemoteDesktop
+[Workspace](ReadMe.md) / Remote Desktop – Verbindung zu Windows über FreeRDP
 
-# 🖥️ Remote Desktop – Verbindung zu Windows über FreeRDP
+# 💻️ Remote Desktop – Verbindung zu Windows über FreeRDP
 
 Alternative zu Remmina – unterstützt mehrere Monitore und flexible Konfiguration.
 

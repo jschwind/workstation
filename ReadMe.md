@@ -4,23 +4,26 @@ Grundlegende Schritt-für-Schritt-Anleitungen zur Einrichtung und Nutzung eines 
 
 ## 📚 Inhalte
 
-* [🖥️ Manjaro – Installation & Einrichtung](Manjaro.md)
+* [🖥️ Manjaro – Workstation einrichten](Manjaro.md)
   Anleitung zur Grundkonfiguration von Manjaro Linux.
 
-* [🐞 Manjaro – Kernel Boot Error beheben](Manjaro-Kernel-Boot-Error.md)
+* [🛑 Manjaro – Kernel Boot Error](Manjaro-Kernel-Boot-Error.md)
   Lösungen bei Startproblemen nach Kernel-Updates.
 
-* [💻 PHPStorm – Einrichtung & Tipps](PHPStorm.md)
+* [🧠 PHPStorm – Einrichtung & Optimierung](PHPStorm.md)
   IDE konfigurieren, Projekte einbinden, Plugins nutzen.
 
-* [🛡️ Securepoint – VPN & Client-Zugang](Securepoint.md)
+* [🛡️ Securepoint – VPN unter Manjaro einrichten](Securepoint.md)
   Einrichtung von Securepoint VPN unter Windows und Linux.
 
-* [🧑‍💻 Remote Desktop – Zugriff von extern](RemoteDesktop.md)
+* [💻️ Remote Desktop – Verbindung zu Windows über FreeRDP](RemoteDesktop.md)
   Verbindungsaufbau über RDP, VNC & Alternativen.
 
-* [💬 Mattermost – Teamkommunikation](Mattermost.md)
+* [💬 Mattermost – Workstation Einrichtung](Mattermost.md)
   Nutzung, Anmeldung und Tipps für effektive Zusammenarbeit.
 
-* [🖨️ Drucker – Einrichtung & Fehlerbehebung](Drucker.md)
+* [🖨️ Brother MFC-L3750CDW – Drucker unter Manjaro einrichten](Drucker.md)
   Netzwerkdrucker einrichten und häufige Probleme lösen.
+
+* [📄 Fujitsu iX500 + Raspberry Pi – Automatischer Farb-Duplex-Scan mit OCR](DocScanner.md)  
+  Scannen per Tastendruck mit OCR direkt auf dem Raspberry Pi speichern.

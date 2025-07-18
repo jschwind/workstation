@@ -1,4 +1,4 @@
-[Workspace](ReadMe.md) / Drucker
+[Workspace](ReadMe.md) / Brother MFC-L3750CDW – Drucker unter Manjaro einrichten
 
 # 🖨️ Brother MFC-L3750CDW – Drucker unter Manjaro einrichten
 

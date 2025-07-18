@@ -1,67 +1,65 @@
+[Workspace](ReadMe.md) / Fujitsu iX500 + Raspberry Pi: Automatischer Farb-Duplex-Scan mit OCR
+
+# 📄 Fujitsu iX500 + Raspberry Pi: Automatischer Farb-Duplex-Scan mit OCR
+
+---
+
 ## ✅ Ziel:
 
-* Der **iX500 wird per USB an den Raspberry Pi** angeschlossen.
-* Durch **Drücken der Taste am Scanner** wird ein beidseitiger Farbscan ausgeführt.
-* Das Ergebnis ist ein **durchsuchbares PDF (mit OCR)**.
-* Dieses wird automatisch **in einem Ordner auf dem Raspberry gespeichert**.
+* Der **ScanSnap iX500 wird per USB** mit dem **Raspberry Pi** verbunden.
+* **Ein Tastendruck am Scanner** löst einen **beidseitigen Farbscan** aus.
+* Das Ergebnis ist ein **durchsuchbares PDF (OCR)**.
+* Die Datei wird automatisch in **`/home/pi/scans/`** gespeichert.
 
 ---
 
 ## 🧰 Was du brauchst:
 
 * Raspberry Pi 3B (oder neuer)
-* microSD-Karte (mind. 16GB, besser 32GB)
+* microSD-Karte (min. 16 GB empfohlen)
 * USB-Kabel für den Scanner
 * Fujitsu ScanSnap iX500
-* Windows-/Mac-PC mit SD-Kartenleser (zum Start)
+* PC oder Mac mit Kartenleser (zum Schreiben des Images)
 
 ---
 
-# 🧾 **Schritt-für-Schritt Anleitung**
+# 🧾 Schritt-für-Schritt Anleitung
 
 ---
 
 ## 🔹 1. Raspberry Pi OS auf SD-Karte installieren
 
-### A) Lade Raspberry Pi Imager herunter:
+### A) Raspberry Pi Imager herunterladen
 
-* Offizielle Seite: [https://www.raspberrypi.com/software](https://www.raspberrypi.com/software)
+➡️ [Offizielle Website](https://www.raspberrypi.com/software)
 
-### B) SD-Karte vorbereiten:
+### B) SD-Karte vorbereiten
 
-1. Starte den Raspberry Pi Imager.
-2. Wähle „Raspberry Pi OS (64-bit, empfohlen)“.
-3. Wähle deine SD-Karte.
-4. Klicke auf ⚙️ (Zahnrad) → aktiviere:
+1. Imager starten
+2. System wählen: `Raspberry Pi OS (64-bit)`
+3. SD-Karte auswählen
+4. ⚙️ Einstellungen (empfohlen aktivieren):
 
-    * Hostname (z.B. `raspberrypi`)
-    * SSH (optional, falls Fernzugriff gewünscht)
-    * Benutzername: `pi`, Passwort: `raspberry`
-5. Klicke auf „Schreiben“.
+   * Hostname: `raspberrypi`
+   * Benutzername: `pi`, Passwort: `raspberry`
+   * SSH aktivieren (optional)
+5. Klicke auf „**Schreiben**“
 
 ---
 
-## 🔹 2. Raspberry Pi anschließen & starten
+## 🔹 2. Raspberry Pi starten & Scanner anschließen
 
-1. Stecke die SD-Karte in den Pi.
-2. Verbinde Bildschirm, Tastatur, Maus (optional: per SSH verbinden).
-3. Schließe den **iX500 per USB** an den Pi.
-4. Stecke Strom ein → der Pi startet.
+1. SD-Karte in den Pi einlegen
+2. Scanner per USB verbinden
+3. Bildschirm & Tastatur anschließen (oder SSH verwenden)
+4. Pi mit Strom versorgen → startet automatisch
 
 ---
 
 ## 🔹 3. Terminal öffnen & System vorbereiten
 
-Öffne ein Terminal (oder SSH) und gib Folgendes ein:
-
 ```bash
-sudo apt update
-sudo apt upgrade -y
-```
-
-Dann installiere benötigte Pakete:
-
-```bash
+sudo apt update && sudo apt upgrade -y
 sudo apt install -y sane-utils scanbd ocrmypdf tesseract-ocr tesseract-ocr-de imagemagick ghostscript
 ```
 
@@ -69,37 +67,33 @@ sudo apt install -y sane-utils scanbd ocrmypdf tesseract-ocr tesseract-ocr-de im
 
 ## 🔹 4. Scanner testen
 
-Scanner einschalten, dann im Terminal prüfen:
-
 ```bash
 scanimage -L
 ```
 
-Wenn du sowas siehst wie:
+🟢 Ausgabe sollte etwa lauten:
 
 ```
-device `fujitsu:ScanSnap iX500:...' is a Fujitsu ScanSnap iX500
+device `fujitsu:ScanSnap iX500:...` is a Fujitsu ScanSnap iX500
 ```
-
-✅ Alles gut! Scanner wird erkannt.
 
 ---
 
-## 🔹 5. Scan-Skript anlegen
+## 🔹 5. Scan-Skript erstellen
 
-Erstelle ein Verzeichnis für Scans:
+### A) Verzeichnis für Scans anlegen
 
 ```bash
 mkdir -p ~/scans
 ```
 
-Dann das Skript öffnen:
+### B) Scan-Skript erstellen
 
 ```bash
 sudo nano /usr/local/bin/scan.sh
 ```
 
-Füge folgendes ein:
+**Inhalt:**
 
 ```bash
 #!/bin/bash
@@ -112,8 +106,7 @@ TMPDIR="/tmp/scansnap_$TIMESTAMP"
 OUTPDF="$OUTDIR/scan_$TIMESTAMP.pdf"
 OCRPDF="$OUTDIR/scan_$TIMESTAMP_ocr.pdf"
 
-mkdir -p "$OUTDIR"
-mkdir -p "$TMPDIR"
+mkdir -p "$OUTDIR" "$TMPDIR"
 
 scanimage \
   --device-name "fujitsu:ScanSnap iX500" \
@@ -124,18 +117,14 @@ scanimage \
   --batch="$TMPDIR/page_%03d.tiff"
 
 convert "$TMPDIR"/page_*.tiff "$OUTPDF"
-
 ocrmypdf --language deu "$OUTPDF" "$OCRPDF"
 
-rm -rf "$TMPDIR"
-rm "$OUTPDF"
+rm -rf "$TMPDIR" "$OUTPDF"
 
-echo "Gescanntes OCR-PDF gespeichert unter: $OCRPDF"
+echo "OCR-PDF gespeichert unter: $OCRPDF"
 ```
 
-Speichern mit `Strg+O`, dann `Enter`, beenden mit `Strg+X`.
-
-**Skript ausführbar machen:**
+### C) Skript ausführbar machen
 
 ```bash
 sudo chmod +x /usr/local/bin/scan.sh
@@ -143,32 +132,32 @@ sudo chmod +x /usr/local/bin/scan.sh
 
 ---
 
-## 🔹 6. scanbd konfigurieren (Taste aktivieren)
+## 🔹 6. `scanbd` konfigurieren (Taste aktivieren)
 
-### A) Deaktiviere alten saned-Dienst:
+### A) Saned deaktivieren
 
 ```bash
 sudo systemctl stop saned.socket
 sudo systemctl disable saned.socket
 ```
 
-### B) `scanbd.conf` anpassen:
+### B) Scan-Aktion definieren
 
 ```bash
 sudo nano /etc/scanbd/scanbd.conf
 ```
 
-Suche den Block `action scan {` und ändere:
+➡️ Im Block `action scan {` folgendes ändern:
 
 ```conf
 script = "/usr/local/bin/scan.sh"
 ```
 
-Speichern mit `Strg+O`, `Enter`, beenden mit `Strg+X`.
+**Speichern mit `Strg+O`, beenden mit `Strg+X`.**
 
 ---
 
-## 🔹 7. scanbd aktivieren
+## 🔹 7. `scanbd` aktivieren & starten
 
 ```bash
 sudo systemctl enable scanbd
@@ -177,33 +166,27 @@ sudo systemctl start scanbd
 
 ---
 
-## 🔹 8. Test: Scan mit Taste auslösen
+## 🔹 8. Scan per Taste testen
 
-1. Stelle sicher, dass:
+1. Stelle sicher:
 
-    * der Scanner eingeschaltet ist,
-    * der Raspberry Pi läuft (scanbd ist aktiv),
-2. Lege ein Dokument ein.
-3. Drücke die **blaue Taste am iX500**.
+   * Raspberry Pi ist eingeschaltet
+   * Scanner ist per USB verbunden und aktiviert
+2. Lege ein Dokument in den ADF
+3. **Drücke die blaue Scan-Taste am iX500**
 
-➡️ Innerhalb ca. 30 Sekunden entsteht ein PDF unter:
-
-```bash
-/home/pi/scans/
-```
-
-Mit Namen wie:
+📁 Das Ergebnis erscheint nach ca. 30 Sekunden in:
 
 ```
-scan_2025-07-18_13-12-55_ocr.pdf
+/home/pi/scans/scan_YYYY-MM-DD_HH-MM-SS_ocr.pdf
 ```
 
 ---
 
-## ✅ Geschafft!
+## 🟢 Geschafft!
 
-Du hast jetzt:
+Du hast nun:
 
-* **OCR-fähige Duplex-Farbscans** auf deinem Raspberry Pi
-* **automatische Verarbeitung per Tastendruck**
-* **keine zusätzliche Software auf PC oder Mac nötig**
+✔️ **Farb- & Duplex-Scan per Tastendruck**
+✔️ **OCR-fähige PDF-Dateien automatisch erstellt**
+✔️ **Keine Windows-/Mac-Software mehr nötig**
