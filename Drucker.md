@@ -1,83 +1,92 @@
 [Workspace](ReadMe.md) / Drucker
 
-# Drucker MFC-L3750CDW unter Manjaro Linux einrichten
+# 🖨️ Brother MFC-L3750CDW – Drucker unter Manjaro einrichten
 
-### ✅ **1. Drucker im Netzwerk verbinden**
-
-Stelle sicher, dass dein Drucker:
-
-* korrekt mit deinem Router verbunden ist (per LAN-Kabel).
-* eine **feste IP-Adresse** hat (entweder im Druckermenü oder per DHCP-Reservierung im Router).
-
-Du kannst die IP-Adresse des Druckers am Gerät anzeigen lassen:
-**Menü → Druckberichte → Netzwerkkonfiguration**
+Anleitung zur Installation von Drucker und Scanner-Funktion unter Manjaro Linux mit AUR-Unterstützung.
 
 ---
 
-### ✅ **2. Treiber installieren (empfohlen: Brother-Originaltreiber)**
+## ✅ 1. 📡 Drucker im Netzwerk verbinden
 
-Brother bietet Linux-Treiber, die auch unter Arch/Manjaro laufen.
+Stelle sicher, dass dein Drucker:
 
-Manjaro unterstützt AUR direkt. Öffne ein Terminal und tippe:
+* über **LAN-Kabel** mit dem Router verbunden ist
+* eine **feste IP-Adresse** hat (am Gerät oder via DHCP-Reservierung)
+
+### 🔍 IP-Adresse herausfinden:
+
+> Menü am Drucker:
+> `Menü → Druckberichte → Netzwerkkonfiguration`
+> → Auf dem Ausdruck steht die aktuelle IP-Adresse (z.B. `192.168.1.100`)
+
+---
+
+## ✅ 2. 📦 Treiber installieren (AUR: Brother-Originaltreiber)
+
+1. Terminal öffnen
+2. AUR-Treiber installieren:
 
 ```bash
 pamac build brother-mfc-l3750cdw
 ```
 
-Diese Pakete installieren die passenden LPR- und CUPS-Treiber für dein Modell.
+> 📦 Installiert LPR- und CUPS-Treiber speziell für dein Modell.
 
 ---
 
-### ✅ **3. CUPS aktivieren und Drucker hinzufügen**
+## ✅ 3. ⚙️ CUPS aktivieren & Drucker hinzufügen
 
-#### CUPS Webinterface aktivieren:
+### 🟢 CUPS starten und aktivieren:
 
-1. Stelle sicher, dass CUPS läuft:
+```bash
+sudo systemctl enable --now cups.service
+```
 
-   ```bash
-   sudo systemctl enable --now cups.service
-   ```
+### 🌐 CUPS Webinterface aufrufen:
 
-2. Öffne das CUPS-Webinterface im Browser:
+[http://localhost:631](http://localhost:631)
 
-   ```
-   http://localhost:631
-   ```
+### ➕ Drucker hinzufügen:
 
-3. Gehe zu **Verwaltung → Drucker hinzufügen**
+1. Menü: **Verwaltung → Drucker hinzufügen**
+2. Authentifiziere dich (Benutzername z.B. `root` oder dein Nutzername)
+3. Wähle: **„LPD/LPR Host or Printer“**
 
-    * Benutzername: `root` oder dein Nutzername
+🔗 URL eingeben (IP-Adresse anpassen):
 
-    * Druckerprotokoll: wähle z.B. **"LPD/LPR Host or Printer"**
+```
+lpd://192.168.1.100/BINARY_P1
+```
 
-    * URL (ersetze `192.168.1.100` durch die IP deines Druckers):
-
-      ```
-      lpd://192.168.1.100/BINARY_P1
-      ```
-
-    * Wähle danach den passenden Treiber aus (z.B. „Brother MFC-L3750CDW CUPS“)
+4. Wähle passenden Treiber:
+   z.B. **„Brother MFC-L3750CDW CUPS“**
 
 ---
 
-### ✅ **4. Testseite drucken**
+## ✅ 4. 🧪 Testseite drucken
 
-Sobald der Drucker hinzugefügt ist, solltest du über das CUPS-Webinterface oder über das Druckmenü in z.B. LibreOffice eine **Testseite drucken** können.
+1. Im CUPS-Webinterface oder
+2. über eine beliebige Anwendung (z.B. **LibreOffice**)
+   → **Testseite drucken** und prüfen, ob der Drucker korrekt arbeitet
 
 ---
 
-### ✅ **5. Optional: Scanner einrichten (für XSane / SimpleScan)**
+## ✅ 5. 📠 Scannerfunktion aktivieren (Simple Scan / XSane)
 
-Installiere `brscan4` (auch über AUR):
+### 📦 Scanner-Treiber installieren:
 
 ```bash
 pamac build brscan4
 ```
 
-Dann:
+### ➕ Gerät registrieren:
 
 ```bash
 brsaneconfig4 -a name=MFC-L3750CDW model=MFC-L3750CDW ip=192.168.1.100
 ```
 
-Nun sollte der Scanner in `Simple Scan` oder `XSane` funktionieren.
+> Nun ist der Scanner nutzbar in:
+
+* **Simple Scan**
+* **XSane**
+* **gscan2pdf** (für OCR & PDF)

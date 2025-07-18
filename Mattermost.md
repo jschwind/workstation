@@ -1,56 +1,103 @@
 [Workspace](ReadMe.md) / Mattermost
 
-# Mattermost - Workstation
+# 💬 Mattermost – Workstation Einrichtung
 
-## Problem beim Logintoken über Desktop App
+Anleitung zur Lösung des Login-Problems über die Desktop-App mit dem Schema `mattermost-dev://`.
 
-Das Problem mit dem benutzerdefinierten URL-Schema `mattermost-dev://`, das nicht funktioniert, könnte auf eine fehlende oder falsch konfigurierte Anwendungseinstellung hinweisen, die verhindert, dass dein Betriebssystem diese URLs korrekt an die Mattermost-Anwendung weiterleitet. Hier sind detaillierte Schritte, um dieses Problem zu untersuchen und möglicherweise zu beheben:
+---
 
-### 1. Überprüfung der URL-Handler-Registrierung
+## ❗ Problem: Login-Link funktioniert nicht
 
-Unter Linux müssen benutzerdefinierte URL-Schemata explizit im System registriert werden, damit sie mit den entsprechenden Anwendungen verknüpft werden können. Hier sind einige Schritte, um zu überprüfen und zu konfigurieren, wie dein System `mattermost-dev://` URLs handhabt:
+Beim Klick auf einen **Login-Link** mit dem Schema `mattermost-dev://` passiert nichts?
 
-#### Überprüfe vorhandene URL-Handler
+➡️ Grund: Der Link wird nicht vom Betriebssystem korrekt an die Mattermost-App weitergeleitet.
 
-- Öffne ein Terminal und führe folgenden Befehl aus, um zu sehen, ob ein Handler für `mattermost-dev` registriert ist:
-  ```bash
-  xdg-mime query default x-scheme-handler/mattermost-dev
-  ```
+---
 
-Wenn dies keine Ausgabe liefert oder der falsche Anwendungshandler angezeigt wird, musst du einen Handler manuell registrieren.
+## 🛠️ Lösung: URL-Handler unter Linux korrekt registrieren
 
-#### Registriere den URL-Handler
+---
 
-- Du musst eine `.desktop` Datei für Mattermost erstellen, falls noch nicht vorhanden, oder die bestehende anpassen. Diese Datei befindet sich normalerweise im Verzeichnis `/usr/share/applications/` oder `~/.local/share/applications/`. Die Datei sollte in etwa so aussehen:
+### ✅ 1. Prüfen, ob ein URL-Handler existiert
 
-  ```ini
-  [Desktop Entry]
-  Name=Mattermost
-  Exec=/pfad/zu/mattermost %u
-  Type=Application
-  NoDisplay=true
-  MimeType=x-scheme-handler/mattermost-dev;
-  ```
+```bash
+xdg-mime query default x-scheme-handler/mattermost-dev
+```
 
-- Füge die URL-Schemata hinzu und stelle sicher, dass der `Exec` Pfad zum Mattermost-Client zeigt, wobei `%u` dafür steht, dass die URL an die Anwendung übergeben wird.
+📌 Ausgabe leer? → Kein Handler registriert → weiter mit Schritt 2
 
-- Nachdem die `.desktop` Datei erstellt oder bearbeitet wurde, führe den folgenden Befehl aus, um die Änderungen im System zu registrieren:
-  ```bash
-  xdg-mime default mattermost.desktop x-scheme-handler/mattermost-dev
-  ```
+---
 
-  Ersetze `mattermost.desktop` mit dem tatsächlichen Dateinamen deiner `.desktop` Datei.
+### ✅ 2. `.desktop`-Datei erstellen oder anpassen
 
-### 2. Testen des URL-Handlers
+1. Öffne ein Terminal
+2. Erstelle oder bearbeite die Datei:
 
-- Nachdem du den URL-Handler registriert hast, kannst du testen, ob es funktioniert, indem du im Browser `mattermost-dev://test` eingibst. Dies sollte versuchen, die Mattermost-Anwendung zu öffnen.
+```bash
+nano ~/.local/share/applications/mattermost.desktop
+```
 
-### 3. Neustart und Überprüfung
+3. Inhalt einfügen:
 
-- Manchmal können Änderungen erst nach einem Neustart des Systems oder der Sitzung vollständig übernommen werden. Starte deinen Computer neu und versuche dann erneut, die URL zu öffnen.
+```ini
+[Desktop Entry]
+Name=Mattermost
+Exec=/opt/Mattermost/mattermost-desktop %u
+Type=Application
+NoDisplay=true
+MimeType=x-scheme-handler/mattermost-dev;
+```
 
-### 4. Überprüfe die Konfiguration und Protokollierung
+> 🛠️ Passe den Pfad bei `Exec=` an den tatsächlichen Installationsort deiner Mattermost-App an! (z.B. `/opt`, Snap, Flatpak, etc.)
 
-- Wenn das Problem weiterhin besteht, überprüfe die Konfigurationseinstellungen und Protokolle von Mattermost für zusätzliche Fehlermeldungen, die darauf hinweisen könnten, warum das URL-Schema nicht funktioniert.
+---
 
-Durch das Befolgen dieser Schritte kannst du sicherstellen, dass dein System richtig konfiguriert ist, um benutzerdefinierte URL-Schemata für Mattermost zu behandeln. Wenn diese Lösungen nicht funktionieren, könnte es sich um ein spezifischeres Problem mit deiner Mattermost-Installation oder deinem Betriebssystem handeln. In diesem Fall könnte eine Anfrage im Mattermost-Forum oder eine genauere Fehleruntersuchung erforderlich sein.
+### ✅ 3. Handler registrieren
+
+```bash
+xdg-mime default mattermost.desktop x-scheme-handler/mattermost-dev
+```
+
+---
+
+### ✅ 4. Testen
+
+1. Gib in einem beliebigen Browser ein:
+
+```
+mattermost-dev://test
+```
+
+2. Die **Mattermost Desktop App sollte sich öffnen** (ggf. mit Fehlermeldung „ungültiger Token“ – das ist in diesem Fall gewollt).
+
+---
+
+### 🔄 5. Neustart oder Session neu laden
+
+Manchmal greifen Änderungen erst nach einem Neustart der Sitzung oder des gesamten Systems.
+
+```bash
+reboot
+```
+
+---
+
+### 🧪 Optional: Registrierung systemweit (für alle Benutzer)
+
+Falls du den Handler systemweit setzen willst:
+
+```bash
+sudo cp ~/.local/share/applications/mattermost.desktop /usr/share/applications/
+sudo xdg-mime default mattermost.desktop x-scheme-handler/mattermost-dev
+```
+
+---
+
+## 🧾 Hinweise zur Fehleranalyse
+
+Falls es weiterhin nicht funktioniert:
+
+* Logs der Mattermost-App prüfen
+* Den Pfad in der `.desktop`-Datei **exakt prüfen**
+* Bei Flatpak/Snap ggf. ein Wrapper-Skript für `Exec=` nutzen
+* Testweise `xdg-open "mattermost-dev://test"` im Terminal ausführen

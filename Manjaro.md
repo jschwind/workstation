@@ -1,188 +1,145 @@
 [Workspace](ReadMe.md) / Manjaro
 
-# Manjaro - Workstation
+# 🖥️ Manjaro – Workstation einrichten
 
-## Vorbereitungen
-- [Mini-PC**](https://www.amazon.de/s?k=mini+pc+ryzen&tag=partyworms0c-21) anschließen
-- [Manjaro](https://manjaro.org/download/) herunterladen (X86_64 - Plasma Desktop)
-- Erstellen eines bootfähigen [USB-Sticks**](https://www.amazon.de/s?k=bootf%C3%A4higer+usb+stick&tag=partyworms0c-21) mit dem Manjaro-Image
+Schritt-für-Schritt-Anleitung zur Installation, Konfiguration und Softwarebereitstellung eines Manjaro-Arbeitsplatzes.
 
-## Manjaro installieren
-- tz=European/Berlin, keytable=de, lang=de_DE
-- "Boot with open source drivers" auswählen
-- "Installer starten" klicken
+---
 
-### Installer: Willkommen
-- Deutsch auswählen
+## 🔧 Vorbereitungen
 
-### Installer: Standort
-- Region: Europe
-- Zeitzone: Berlin
+1. **Mini-PC anschließen**
+   [🛒 Mini-PC-Empfehlung](https://www.amazon.de/s?k=mini+pc+ryzen&tag=partyworms0c-21)
 
-### Installer: Tastatur
-- "German" > "Default" auswählen
+2. **Manjaro herunterladen**
+   [➡️ Manjaro Download (Plasma Desktop, x86\_64)](https://manjaro.org/download/)
 
-### Installer: Partitionen
-- "Festplatte löschen" auswählen > "Kein Swap" > "ext4"
-- "Verschlüsseltes System" wählen und Passwort eintragen
+3. **Bootfähigen USB-Stick erstellen**
+   [🛒 Bootfähiger USB-Stick](https://www.amazon.de/s?k=bootf%C3%A4higer+usb+stick&tag=partyworms0c-21)
 
-### Installer: Benutzer
-- Alle Felder entsprechend ausfüllen
+---
 
-### Installer: Office-Paket
-- LibreOffice (optional)
+## 💿 Manjaro installieren
 
-## Manjaro erste Schritte
+1. Beim Booten `Boot with open source drivers` wählen
+2. „Installer starten“ klicken
 
-### Uhr und Zeitzone
+### 🗺️ Installer-Schritte
 
-- Über die Uhrzeit in die Einstellungen > "Zeitzonen" > "Zeitzone des Sysmtems wechseln" > "Datum & Uhrzeit"
-- "Datum und Uhrzeit automatisch einstellen" anhaken und dann "Anwenden"
+* **Sprache:** Deutsch
+* **Standort:** Europe / Berlin
+* **Tastatur:** German > Default
+* **Partitionierung:**
 
-### Software hinzufügen/entfernen (optional)
+    * „Festplatte löschen“
+    * Kein Swap
+    * ext4
+    * Verschlüsseltes System (Passwort eingeben)
+* **Benutzer:** alle Felder ausfüllen
+* **Office (optional):** LibreOffice
 
-- Über das Burgermenü in die Einstellungen > Drittanbeiter
-- "AUR Unterstützung" und "Auf Updates prüfen" aktivieren
+---
 
-## Software
+## 🚀 Erste Schritte nach Installation
 
-### Folgende Software über "Software hinzufügen/entfernen" installieren
+### 🕒 Zeitzone & Uhrzeit
 
-- Chromium Web Browser (chromium) > alle optionalen Abhängigkeiten ausser kwallet
-- docker > alle optionalen Abhängigkeiten
-- docker-compose
-- Dropbox (AUR) (optional) > alle optionalen Abhängigkeiten
-- Flameshot (flameshot) > alle optionalen Abhängigkeiten
-- KeePass Password Safe (keepass) > alle optionalen Abhängigkeiten
-- Mattermost (mattermost-desktop) (optional)
-- Remmina (Free RDP) (optional)
-- spotify (AUR) (optional) > alle optionalen Abhängigkeiten
-- yakuake (evtl. schon installiert)
-- veracrypt (optional) > alle optionalen Abhängigkeiten
+> Einstellungen > Datum & Uhrzeit:
 
-### JetBrains Toolbox App installieren
+* „Datum und Uhrzeit automatisch einstellen“ aktivieren
+* „Zeitzone des Systems wechseln“ → Berlin
 
-- [JetBrains Toolbox App](https://www.jetbrains.com/de-de/toolbox-app/) installieren
-- Einloggen
-- PHP Storm installieren
+### 🧰 AUR aktivieren (optional)
 
-## Einstellungen
+> Einstellungen > Software hinzufügen/entfernen > „Drittanbieter“:
 
-### Autostart
+* „AUR-Unterstützung aktivieren“
+* „Auf Updates prüfen“ aktivieren
 
-Folgenden Programm in den Autostart
+---
 
-- Dropbox (wenn installiert)
-- Flameshot
-- JetBrains Toolbox
-- Yakuake
+## 📦 Softwareinstallation (via Software-Center)
 
-### Git
+> **Empfohlene Pakete:**
 
-Git Benutzereinstellungen global im System hinterlegen:
+| Paket                       | Beschreibung        | Optional                               |
+| --------------------------- | ------------------- | -------------------------------------- |
+| **chromium**                | Webbrowser          | 🔘 (alle Abhängigkeiten außer kwallet) |
+| **docker + docker-compose** | Containerverwaltung | 🔘 (alle optionalen Abhängigkeiten)    |
+| **dropbox (AUR)**           | Cloudspeicher       | ✅                                      |
+| **flameshot**               | Screenshot-Tool     | 🔘                                     |
+| **keepass**                 | Passwort-Manager    | 🔘                                     |
+| **mattermost-desktop**      | Team-Chat           | ✅                                      |
+| **remmina**                 | RDP-Client          | ✅                                      |
+| **spotify (AUR)**           | Musikstreaming      | ✅                                      |
+| **yakuake**                 | Drop-down Terminal  | evtl. schon installiert                |
+| **veracrypt**               | Verschlüsselung     | ✅                                      |
 
-    git config --global user.email "name@domain.tld"
-    git config --global user.name "name"
+---
 
-### Docker
+## 🧰 JetBrains Toolbox + PHPStorm
 
-Docker ohne root ausführen und starten
+1. [Toolbox App herunterladen](https://www.jetbrains.com/de-de/toolbox-app/)
+2. App starten → Einloggen
+3. PHPStorm installieren
 
-    sudo systemctl start docker.service
-    sudo systemctl enable docker.service
-    sudo usermod -aG docker $USER
+---
 
-### Chromium und KeePass
+## ⚙️ System-Einstellungen
 
-- [Kee - Password Manager](https://chrome.google.com/webstore/detail/kee-password-manager/mmhlniccooihdimnnjhamobppdhaolme) Installieren
-- [KeePassRPC.plgx](https://github.com/kee-org/keepassrpc/tags) herunterladen und in den Plugins von KeePass kopieren (braucht sudo)
-- `sudo cp KeePassRPC.plgx /usr/share/keepass/Plugins/` in Downloads ausführen
+### 🧬 Autostart
 
-## Workarounds / Tipps
+> Einstellungen > Autostart
 
-### 2. Kernel als Backup
+* Dropbox (falls installiert)
+* Flameshot
+* JetBrains Toolbox
+* Yakuake
 
-Unter dem Programm `Kernel` noch einen 2. LTS Kernel installieren
+### 🔐 Git konfigurieren
 
-### Git Probleme mit PHP Storm
+```bash
+git config --global user.email "name@domain.tld"
+git config --global user.name "Dein Name"
+```
 
-## 1. Ansatz | pinentry
+### 🐳 Docker aktivieren
 
-Sollte das Absenden von Commits mit der Fehlermeldung `error: gpg failed to sign the data` enden, alle optionalen Abhängigkeiten zu "pinentry" installieren.
+```bash
+sudo systemctl start docker.service
+sudo systemctl enable docker.service
+sudo usermod -aG docker $USER
+```
 
-## 2. Ansatz
+### 🔑 Chromium + KeePass
 
-Sollte das Absenden von Commits mit der Fehlermeldung `error: gpg failed to sign the data` enden, liegt es an einer älteren curl Version. Um diesen Fehler zu beheben, muss man die `.bashrc` bearbeiten.
+1. [Kee-Passwortmanager Plugin](https://chrome.google.com/webstore/detail/kee-password-manager/mmhlniccooihdimnnjhamobppdhaolme) installieren
+2. [KeePassRPC Plugin](https://github.com/kee-org/keepassrpc/tags) herunterladen
+3. Plugin nach `/usr/share/keepass/Plugins/` kopieren:
 
-    nano ~/.bashrc
+```bash
+sudo cp KeePassRPC.plgx /usr/share/keepass/Plugins/
+```
 
-Änderung in der Datei
+---
 
-    #
-    # ~/.bashrc
-    #
-    
-    GPG_TTY=$(tty)  <- Diese Zeile muss rein
-    export GPG_TTY  <- Diese Zeile muss rein
+## 🛠️ Workarounds & Tipps
 
-## Pinentry konfigurieren
+### 🧱 Zweiten Kernel installieren (Backup)
 
-Wenn es dann immer noch nicht geht Folgendes:
+> Anwendung „Kernel“ öffnen
+> LTS-Kernel zusätzlich installieren (z.B. 6.6.x)
 
-    nano ~/.gnupg/gpg-agent.conf
+---
 
-Folgender Inhalt
+## 🧹 Systempflege & Aufräumen
 
-    pinentry-program /usr/bin/pinentry-qt
-    allow-loopback-pinentry
+| Befehl                            | Funktion                                |
+| --------------------------------- | --------------------------------------- |
+| `sudo pacman -Syu`                | System & Pakete aktualisieren           |
+| `sudo pacman -Syyu`               | Erzwungene Spiegelserver-Aktualisierung |
+| `pacman -Qdt`                     | Liste verwaister Pakete                 |
+| `sudo pacman -Rs $(pacman -Qdtq)` | Verwaiste Pakete entfernen              |
+| `sudo pacman -Sc`                 | Cache veralteter Pakete leeren          |
 
-## Pinentry mit Passwort speichern Maske
-
-Wenn man das Passwort im Dialog speichern möchte
-
-    nano ~/.gnupg/gpg-agent.conf
-
-ändern in 
-
-    pinentry-program /usr/bin/pinentry-gnome3
-
-## Pinentry Timeout auf 8 Stunden setzen
-
-    nano ~/.gnupg/gpg-agent.conf
-
-dann folgende Zeilen einfügen
-
-    allow-loopback-pinentry
-    default-cache-ttl 28800   # 8 Stunden in Sekunden
-    max-cache-ttl 28800       # 8 Stunden in Sekunden
-
-Starte den GPG-Agenten neu, damit die Änderungen aktiv werden:
-
-    gpgconf --kill gpg-agent
-
-
-### Hilfen zum Aufräumen des Systems
-
-Um die Paketdatenbank zu aktualisieren und alle Pakete auf dem System zu aktualisieren
-
-    sudo pacman -Syu
-
-Um eine vollständige Auffrischung der Paketdatenbank zu erzwingen und alle Pakete auf dem System zu aktualisieren. Dies ist erforderlich für das Umschalten von Auslieferungszweigen oder das Umschalten von Spiegelservern.
-
-    sudo pacman -Syyu
-
-Um alle installierten "verwaisten" Pakete anzuzeigen, von denen kein anderes Paket abhängt und welche somit nicht mehr nötig sein sollten:
-
-    pacman -Qdt
-
-Um alle verwaisten Pakete zu entfernen:
-
-    sudo pacman -Rs $(pacman -Qdtq)
-
-Um den Cache von Paketen zu bereinigen, die nicht mehr installiert sind, gib das folgende Kommando ein:
-
-    sudo pacman -Sc
-
-Quelle: https://wiki.manjaro.org/index.php/Pacman_Overview/de
-
-** Ref-Links zu Amazon
+👉 Quelle: [Manjaro Wiki – Pacman Übersicht](https://wiki.manjaro.org/index.php/Pacman_Overview/de)

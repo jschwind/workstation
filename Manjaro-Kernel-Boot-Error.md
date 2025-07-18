@@ -1,56 +1,125 @@
-# Fehler: Datei xxx nicht gefunden - Manjaro Kernel Boot Error
-Das Problem scheint mit einer fehlenden oder beschädigten initramfs-Datei zusammenzuhängen, die für das Laden des Systems notwendig ist. Da die Festplatte verschlüsselt ist, ist es wichtig, vorsichtig vorzugehen, um keine Daten zu verlieren. Hier sind die Schritte, um das Problem zu lösen:
+[Workspace](ReadMe.md) / Manjaro – Kernel Boot Error
 
-1. **Booten mit einem Live-System**:
-   - Lade ein Manjaro-Live-ISO herunter und erstelle ein bootfähiges USB-Laufwerk.
-   - Starte dein System vom Live-USB-Stick.
+# 🛑 Manjaro – Kernel Boot Error: „Datei xxx nicht gefunden“
 
-2. **Entschlüssele die Festplatte**:
-   - Öffne ein Terminal und entschlüssele die Festplatte mit folgendem Befehl:
-     ```bash
-     sudo cryptsetup luksOpen /dev/sdX encrypted
-     ```
-     Ersetze `/dev/sdX` mit dem richtigen Gerätenamen deiner verschlüsselten Partition. Du kannst den Gerätenamen mit `lsblk` finden.
+Dieser Fehler tritt meist auf, wenn die **`initramfs`-Datei fehlt oder beschädigt ist** – sie wird zum Laden des Kernels benötigt. Besonders bei verschlüsselten Systemen ist Vorsicht geboten, um Datenverlust zu vermeiden.
 
-3. **Binde die Partition ein**:
-   - Binde das Dateisystem ein:
-     ```bash
-     sudo /dev/mapper/encrypted /mnt
-     ```
-   - Falls separate Boot- oder EFI-Partitionen vorhanden sind, binde diese ebenfalls ein:
-     ```bash
-     sudo mount /dev/sdX1 /mnt/boot
-     ```
+---
 
-4. **Chroot ins System**:
-   - Wechsel in das installierte System:
-     ```bash
-     duso manjaro-chroot /mnt
-     ```
+## 🧰 Was du brauchst
 
-5. **Repariere die initramfs-Datei**:
-   - Stelle die initramfs-Datei wieder her:
-     ```bash
-     mkinitcpio -P
-     ```
-   - Dies generiert neue initramfs-Dateien für alle installierten Kernel.
+* Einen zweiten PC zum Erstellen eines Live-USB-Sticks
+* Manjaro-ISO: [https://manjaro.org/download/](https://manjaro.org/download/)
+* USB-Stick (mind. 4 GB)
 
-6. **Überprüfe und aktualisiere GRUB**:
-   - Aktualisiere den Bootloader:
-     ```bash
-     update-grub
-     ```
+---
 
-7. **Neustart**:
-   - Beende die chroot-Umgebung mit `exit`, unbinde die Partitionen mit `umount -R /mnt` und starte das System neu:
-     ```bash
-     reboot
-     ```
+## 🔧 Schritt-für-Schritt Reparatur
 
-Falls das Problem weiterhin besteht, könnte es an einem beschädigten Kernel oder einer unvollständigen Aktualisierung liegen. In diesem Fall wäre es hilfreich, den Kernel neu zu installieren. Das kannst du in der chroot-Umgebung mit folgendem Befehl tun:
+---
+
+### ✅ 1. Live-System starten
+
+* Erstelle einen bootfähigen USB-Stick mit dem **Manjaro ISO** (z.B. via [balenaEtcher](https://etcher.io/))
+* Starte dein defektes System vom Stick (evtl. Bootmenü mit `F12`, `ESC` o.ä.)
+
+---
+
+### ✅ 2. Verschlüsselte Festplatte entsperren
+
+> Terminal öffnen im Live-System:
 
 ```bash
-mhwd-kernel -i linux6.1
+sudo cryptsetup luksOpen /dev/sdX encrypted
 ```
 
-Ersetze `linux6.1` durch die Kernel-Version, die du verwenden möchtest.
+🔍 Ersetze `/dev/sdX` durch die verschlüsselte Partition (findbar mit `lsblk`)
+
+Beispiel:
+
+```bash
+lsblk
+```
+
+→ `/dev/sda2` ist meist die verschlüsselte Root-Partition.
+
+---
+
+### ✅ 3. Partitionen einbinden
+
+```bash
+sudo mount /dev/mapper/encrypted /mnt
+```
+
+#### Falls separate Boot- oder EFI-Partitionen vorhanden sind:
+
+```bash
+sudo mount /dev/sdX1 /mnt/boot
+sudo mount /dev/sdX2 /mnt/boot/efi
+```
+
+(*Passe `/dev/sdX1` usw. an deine Gegebenheiten an – siehe `lsblk`*)
+
+---
+
+### ✅ 4. chroot: In dein System wechseln
+
+```bash
+sudo manjaro-chroot /mnt
+```
+
+→ Du befindest dich nun im reparierbaren System.
+
+---
+
+### ✅ 5. Initramfs wiederherstellen
+
+```bash
+mkinitcpio -P
+```
+
+➡️ Erstellt die `initramfs`-Dateien für alle installierten Kernel neu.
+
+---
+
+### ✅ 6. GRUB-Bootloader aktualisieren
+
+```bash
+update-grub
+```
+
+---
+
+### ✅ 7. Neustart vorbereiten
+
+```bash
+exit
+sudo umount -R /mnt
+sudo reboot
+```
+
+Entferne beim Neustart den USB-Stick.
+
+---
+
+## 🧪 Fehler besteht weiterhin?
+
+### 🔄 Kernel neu installieren (in chroot)
+
+Falls `mkinitcpio` nicht hilft, kann ein beschädigter Kernel schuld sein. Installiere z.B. Kernel 6.1 LTS:
+
+```bash
+mhwd-kernel -i linux61
+mkinitcpio -P
+update-grub
+```
+
+→ Danach erneut neustarten.
+
+---
+
+## 💡 Tipps
+
+* Verwende **LTS-Kernel** (z.B. `linux61`, `linux510`) für mehr Stabilität
+* Mit `mhwd-kernel -li` siehst du installierte Kernel
+* Mit `mhwd-kernel -r linuxXYZ` entfernst du alte Kernel

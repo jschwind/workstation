@@ -1,83 +1,121 @@
 [Workspace](ReadMe.md) / RemoteDesktop
 
-# RemoteDesktop
+# 🖥️ Remote Desktop – Verbindung zu Windows über FreeRDP
 
-Alternative zu Remmina. Funktioniert mit mehreren Monitoren.
+Alternative zu Remmina – unterstützt mehrere Monitore und flexible Konfiguration.
 
-### Folgende Software über "Software hinzufügen/entfernen" installieren
+---
 
-- freerdp
+## 📦 Softwareinstallation
 
-### Verbindung zu Windows-PC herstellen
+> Öffne **„Software hinzufügen/entfernen“** und installiere:
 
-konsole:
+* `freerdp` (Paketname)
 
-    xfreerdp /u:{username} /v:{server} /d:{domain} /multimon
+---
 
-konsole mit Passwort:
+## 🔌 Verbindung zu Windows-PC herstellen
 
-    xfreerdp /u:{username} /v:{server} /d:{domain} /multimon /p:{password}
+### 📄 Direkt in der Konsole
 
-shellscript:
+**Ohne Passwort:**
 
-    #!/bin/bash
+```bash
+xfreerdp /u:{username} /v:{server} /d:{domain} /multimon
+```
 
-    # Benutzername, Server-Adresse und Domäne
-    USERNAME="{username}"
-    SERVER="{server}"
-    DOMAIN="{domain}"
+**Mit Passwort:**
 
-    # xfreerdp Befehl ausführen
-    xfreerdp /u:$USERNAME /v:$SERVER /d:$DOMAIN /multimon
+```bash
+xfreerdp /u:{username} /v:{server} /d:{domain} /multimon /p:{password}
+```
 
+---
 
-shellscript mit Passwort:
+## 🖋️ Shellscript erstellen (Start per Klick möglich)
 
-    #!/bin/bash
+### Variante ohne Passwort:
 
-    # Benutzername, Passwort, Server-Adresse und Domäne
-    USERNAME="{username}"
-    SERVER="{server}"
-    DOMAIN="{domain}"
-    PASSWORD="{password}"
+```bash
+#!/bin/bash
 
-    # xfreerdp Befehl ausführen
-    xfreerdp /u:$USERNAME /v:$SERVER /d:$DOMAIN /multimon /p:$PASSWORD
+# Benutzername, Server-Adresse und Domäne
+USERNAME="{username}"
+SERVER="{server}"
+DOMAIN="{domain}"
 
-### Erstellen eines Desktop-Icons
+# Remote Desktop starten
+xfreerdp /u:$USERNAME /v:$SERVER /d:$DOMAIN /multimon
+```
 
-    sudo nano /usr/share/applications/rdp.desktop
+### Variante mit Passwort:
 
-oder nur für den aktuellen Benutzer:
+```bash
+#!/bin/bash
 
-    nano ~/.local/share/applications/rdp.desktop
+# Benutzername, Passwort, Server-Adresse und Domäne
+USERNAME="{username}"
+PASSWORD="{password}"
+SERVER="{server}"
+DOMAIN="{domain}"
 
-Inhalt:
+# Remote Desktop starten
+xfreerdp /u:$USERNAME /v:$SERVER /d:$DOMAIN /multimon /p:$PASSWORD
+```
 
-    [Desktop Entry]
-    Categories=Utility;
-    Comment=
-    Exec=konsole -e "{path}/rdp.sh"
-    GenericName=
-    Icon={path}/icon.png
-    MimeType=
-    Name=Remote
-    Path=
-    StartupNotify=true
-    Terminal=false
-    TerminalOptions=
-    Type=Application
-    X-KDE-SubstituteUID=false
-    X-KDE-Username=
+> Speichern als z.B. `~/rdp.sh` und ausführbar machen:
 
-### Optionen
+```bash
+chmod +x ~/rdp.sh
+```
 
-- `/sound` - Sound übertragen
-- `/multimon` - Mehrere Monitore übertragen
-- `/w:1920` - Breite des Fensters
-- `/h:1080` - Höhe des Fensters
+---
 
-### Shortcuts
+## 🖼️ Desktop-Verknüpfung erstellen
 
-- Fenstermodus mit `STRG + ALT + ENTER`
-- Vollbildmodus mit `STRG + ALT + ENTER`
+### A) Für alle Benutzer:
+
+```bash
+sudo nano /usr/share/applications/rdp.desktop
+```
+
+### B) Nur für aktuellen Benutzer:
+
+```bash
+nano ~/.local/share/applications/rdp.desktop
+```
+
+### Inhalt der Datei:
+
+```ini
+[Desktop Entry]
+Name=Remote
+Comment=Windows Remote Desktop
+Exec=konsole -e "/home/pi/rdp.sh"
+Icon=/home/pi/icon.png
+Terminal=false
+Type=Application
+Categories=Utility;
+StartupNotify=true
+```
+
+> Pfade ggf. anpassen (`/home/pi/rdp.sh`, Icon optional)
+
+---
+
+## ⚙️ Nützliche Optionen für `xfreerdp`
+
+| Option      | Bedeutung                      |
+| ----------- | ------------------------------ |
+| `/sound`    | Audio vom Remote-PC übertragen |
+| `/multimon` | Nutzung mehrerer Monitore      |
+| `/w:1920`   | Fensterbreite                  |
+| `/h:1080`   | Fensterhöhe                    |
+
+---
+
+## ⌨️ Tastenkombinationen
+
+| Shortcut             | Funktion                                      |
+| -------------------- | --------------------------------------------- |
+| `STRG + ALT + ENTER` | Umschalten zwischen Fenstermodus und Vollbild |
