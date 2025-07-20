@@ -16,7 +16,7 @@
 ## 🧰 Was du brauchst:
 
 * Raspberry Pi 3B (oder neuer)
-* microSD-Karte (min. 16 GB empfohlen)
+* microSD-Karte (min. 16GB empfohlen)
 * USB-Kabel für den Scanner
 * Fujitsu ScanSnap iX500
 * PC oder Mac mit Kartenleser (zum Schreiben des Images)
@@ -36,7 +36,7 @@
 ### B) SD-Karte vorbereiten
 
 1. Imager starten
-2. System wählen: `Raspberry Pi OS (64-bit)`
+2. System wählen: `Raspberry Pi OS Lite (64-bit)`
 3. SD-Karte auswählen
 4. ⚙️ Einstellungen (empfohlen aktivieren):
 
@@ -60,7 +60,7 @@
 
 ```bash
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y sane-utils scanbd ocrmypdf tesseract-ocr tesseract-ocr-de imagemagick ghostscript
+sudo apt install -y sane-utils scanbd ocrmypdf tesseract-ocr tesseract-ocr-deu imagemagick ghostscript
 ```
 
 ---
