@@ -31,7 +31,3 @@ Grundlegende Schritt-für-Schritt-Anleitungen zur Einrichtung und Nutzung eines 
 * [🖨️ Brother MFC-L3750CDW – Drucker unter Manjaro einrichten](Drucker.md)
   
   Netzwerkdrucker einrichten und häufige Probleme lösen.
-
-* [📄 Fujitsu iX500 + Raspberry Pi – Automatischer Farb-Duplex-Scan mit OCR](DocScanner.md) 
-
-  Scannen per Tastendruck mit OCR direkt auf dem Raspberry Pi speichern.
